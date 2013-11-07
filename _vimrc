@@ -89,7 +89,9 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR>
 " Run django tests
 map <leader>dt :set makeprg=python\ manage.py\ test\|:call MakeGreen()<CR>
 
-" Reload Vimrc
+" ,v brings up my .vimrc
+" ,V reloads it -- making all changes active (have to save first)
+map <leader>v :sp ~/.vimrc<CR><C-W>_
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " open/close the quickfix window
@@ -186,7 +188,7 @@ set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
 set tabstop=4               " <tab> inserts 4 spaces 
 set shiftwidth=4            " but an indent level is 2 spaces wide.
-set softtabstop=4           " <BS> over an autoindent deletes both spaces.
+set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
@@ -224,7 +226,7 @@ set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 "set list
 
 """ Searching and Patterns
-set ignorecase              " Default to using case insensitive searches,
+"set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
 set smarttab                " Handle tabs more intelligently 
 set hlsearch                " Highlight searches by default.
@@ -237,6 +239,11 @@ if has("gui_running")
 
     " Remove toolbar
     set guioptions-=T
+else
+    colorscheme slate
+	highlight Pmenu ctermfg=3 ctermbg=4 guibg=grey30
+	highlight PmenuSel ctermfg=8 ctermbg=4 guibg=grey30
+	highlight Comment ctermfg=5 cterm=bold guibg=grey30
 endif
 
 colorscheme molokai
@@ -304,6 +311,43 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
 
-if exists("&colorcolumn")
-   set colorcolumn=79
-endif
+
+if exists('+colorcolumn')
+      set colorcolumn=80
+  else
+        au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    endif
+
+" From Misha's vimrc
+" allow multiple open buffers without asking to save when switching
+set hidden
+map <F5> :bp<CR>
+map <F6> :bn<CR>
+"
+" Section: Copy Paste {{{2
+map <S-Insert> "*P<Right>"
+imap <S-Insert> <C-R>*
+cmap <S-Insert> <C-R>*
+
+vnoremap p <ESC>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><ESC>
+set pastetoggle=<F8>
+
+" cursor restore commands
+
+set viminfo='100,\"100,:20,%,n~/.viminfo
+
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+"set makeprg=pylint\ --reports=n\ --output-format=parseable\ %:p
+"set errorformat=%f:%l:\ %m
+"autocmd BufWritePost *.py !pylint <afile>

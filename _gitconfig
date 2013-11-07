@@ -1,6 +1,6 @@
 [user]
-    name = John Anderson
-    email = sontek@gmail.com
+    name = Doody Parizada
+    email = doody.parizada@gmail.com
 
 [color]
     diff = auto
@@ -17,7 +17,7 @@
 
 [alias]
     diverges = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
-    st = status
+    st = status -s -uno
     ci = commit
     br = branch
     co = checkout
