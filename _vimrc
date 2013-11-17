@@ -246,8 +246,6 @@ else
 	highlight Comment ctermfg=5 cterm=bold guibg=grey30
 endif
 
-colorscheme molokai
-
 " Paste from clipboard
 map <leader>p "+p
 
