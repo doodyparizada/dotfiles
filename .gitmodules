@@ -67,3 +67,6 @@
 [submodule "_oh-my-zsh"]
 	path = _oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
+[submodule "_zsh-completions"]
+	path = _zsh-completions
+	url = git://github.com/zsh-users/zsh-completions.git
