@@ -108,3 +108,4 @@ bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 fpath=(~/.zsh-completions/src $fpath)
 unsetopt correct_all
+source ~/.profile
