@@ -38,6 +38,7 @@ alias webrestart='sudo /etc/init.d/apache2 restart'
 alias webtail='ssh root@test-app "tail -f /opt/logs/www.log"'
 alias apptail='ssh root@test-app "tail -f /opt/logs/appsrv.log"'
 alias cdricapi='cd /opt/application/rounds/'
+alias cdlive='cd /opt/application/live/appserver/'
 alias cdubik='cd /opt/application/rounds2/server/ubik/'
 alias cdrvidyo='cd /opt/Vidyo-ServerSDK/samples/rvidyo'
 alias resource='source $ZSH/oh-my-zsh.sh'
@@ -47,6 +48,10 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 #export PS1="$PS1`~/bin/svn-ps1.py`"
+
+function sshans {                               
+	ssh -i ~/.ssh/ansible ubuntu@$*
+}
 
 function sshpup {                               
 	ssh -i ~/.ssh/puppeteer ec2-user@$*
