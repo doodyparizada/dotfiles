@@ -39,7 +39,7 @@ alias webtail='ssh root@test-app "tail -f /opt/logs/www.log"'
 alias apptail='ssh root@test-app "tail -f /opt/logs/appsrv.log"'
 alias cdricapi='cd /opt/application/rounds/'
 alias cdlive='cd /opt/application/live/appserver/'
-alias cdubik='cd /opt/application/rounds2/server/ubik/'
+alias cdubik='cd /opt/application/ubik/'
 alias cdrvidyo='cd /opt/Vidyo-ServerSDK/samples/rvidyo'
 alias resource='source $ZSH/oh-my-zsh.sh'
 alias gh=hub
@@ -106,11 +106,19 @@ alias cbwd="pwd | cb"
 # Copy most recent command in bash history
 alias cbhs="cat $HISTFILE | tail -n 1 | c"
 
+# bind up and down keys to filter history by the current cmd prefix
+autoload up-line-or-beginning-search
+autoload down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+[[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
+[[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
+
+# double ctrl-x will show all history options:
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^X' history-beginning-search-menu
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
+
 fpath=(~/.zsh-completions/src $fpath)
 unsetopt correct_all
 source ~/.profile
