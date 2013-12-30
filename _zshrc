@@ -53,6 +53,11 @@ function sshans {
 	ssh -i ~/.ssh/ansible ubuntu@$*
 }
 
+# ansible with digital
+function sshdgtl {                               
+	ssh -i ~/.ssh/ansible root@$*
+}
+
 function sshpup {                               
 	ssh -i ~/.ssh/puppeteer ec2-user@$*
 }
