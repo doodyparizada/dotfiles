@@ -127,3 +127,4 @@ bindkey '^X^X' history-beginning-search-menu
 fpath=(~/.zsh-completions/src $fpath)
 unsetopt correct_all
 source ~/.profile
+alias ubik='ssh -i ~/.ssh/ansible -t ubuntu@54.88.161.216 "cd /opt/ubik; bash"'
