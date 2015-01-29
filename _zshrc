@@ -128,4 +128,6 @@ fpath=(~/.zsh-completions/src $fpath)
 unsetopt correct_all
 source ~/.profile
 alias ubik='ssh -i ~/.ssh/ansible -t ubuntu@54.88.161.216 "cd /opt/ubik; bash"'
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:~/Workspace/misc/devops_scripts/:$PATH
+# godoc
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
