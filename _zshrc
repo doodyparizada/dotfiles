@@ -118,6 +118,8 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 # set the key var with terminfo
+typeset -A key
+
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
