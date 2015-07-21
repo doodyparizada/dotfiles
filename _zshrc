@@ -49,21 +49,29 @@ source $ZSH/oh-my-zsh.sh
 
 #export PS1="$PS1`~/bin/svn-ps1.py`"
 
-function sshans {                               
+function sshans {
 	ssh -i ~/.ssh/ansible ubuntu@$*
 }
 
 # ansible with digital
-function sshdgtl {                               
+function sshdgtl {
 	ssh -i ~/.ssh/ansible root@$*
 }
 
-function sshpup {                               
+function sshpup {
 	ssh -i ~/.ssh/puppeteer ec2-user@$*
 }
 
-function sshdio {                               
+function sshdio {
 	ssh -i ~/.ssh/dimadio ec2-user@$*
+}
+
+function fn {
+    find . -not -path '*/\.*' -type f -name "*$**"
+}
+
+function vimf {
+    vim `ag -l "$*"`
 }
 
 # From: http://madebynathan.com/2011/10/04/a-nicer-way-to-use-xclip/
@@ -103,11 +111,11 @@ cb() {
 # Aliases / functions leveraging the cb() function
 # ------------------------------------------------
 # Copy contents of a file
-function cbf() { cat "$1" | cb; }  
+function cbf() { cat "$1" | cb; }
 # Copy SSH public key
-alias cbssh="cbf ~/.ssh/id_rsa.pub"  
+alias cbssh="cbf ~/.ssh/id_rsa.pub"
 # Copy current working directory
-alias cbwd="pwd | cb"  
+alias cbwd="pwd | cb"
 # Copy most recent command in bash history
 alias cbhs="cat $HISTFILE | tail -n 1 | c"
 
@@ -146,3 +154,5 @@ alias ubik='ssh -i ~/.ssh/ansible -t ubuntu@54.88.161.216 "cd /opt/ubik; bash"'
 export PATH=/usr/local/bin:~/Workspace/misc/devops_scripts/:$PATH
 # godoc
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH="~/google-cloud-sdk/bin:$PATH"
+export GOPATH=~/Workspace/gopath

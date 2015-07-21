@@ -16,9 +16,9 @@ except ImportError:
 
 
 # Make this work properly in Darwin and Linux
-if 'libedit' in readline.__doc__:                                          
-    readline.parse_and_bind("bind ^I rl_complete")                         
-else:                                                                      
+if 'libedit' in readline.__doc__:
+    readline.parse_and_bind("bind ^I rl_complete")
+else:
     readline.parse_and_bind("tab: complete")
 
 class Completer(object):
@@ -101,7 +101,7 @@ sys.displayhook = my_displayhook
 
 # Django Helpers
 def SECRET_KEY():
-    "Generates a new SECRET_KEY that can be used in a project settings file." 
+    "Generates a new SECRET_KEY that can be used in a project settings file."
 
     from random import choice
     return ''.join(
