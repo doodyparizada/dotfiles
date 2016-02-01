@@ -49,6 +49,10 @@ source $ZSH/oh-my-zsh.sh
 
 #export PS1="$PS1`~/bin/svn-ps1.py`"
 
+function dockerrmall {
+    docker rm `docker ps --all | awk '{print $1}' | tail +2`
+}
+
 function sshans {
 	ssh -i ~/.ssh/ansible ubuntu@$*
 }
@@ -70,9 +74,14 @@ function fn {
     find . -not -path '*/\.*' -type f -name "*$**"
 }
 
-function vimf {
+function vimg {
     vim `ag -l "$*"`
 }
+
+function vimf {
+    vim `fn "$*"`
+}
+
 
 # From: http://madebynathan.com/2011/10/04/a-nicer-way-to-use-xclip/
 # A shortcut function that simplifies usage of xclip.
@@ -155,4 +164,9 @@ export PATH=/usr/local/bin:~/Workspace/misc/devops_scripts/:$PATH
 # godoc
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH="~/google-cloud-sdk/bin:$PATH"
-export GOPATH=~/Workspace/gopath
+
+[[ -s "/Users/doody/.gvm/scripts/gvm" ]] && source "/Users/doody/.gvm/scripts/gvm"
+
+export WORKON_HOME=~/virtualenvwrapper
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.zshrc_secret
