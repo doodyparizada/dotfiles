@@ -12,9 +12,9 @@ plugins=(
     docker
     docker-compose
     brew
-    virtualenvwrapper 
-    tmux 
-    zsh-syntax-highlighting  # has to be the last 
+    virtualenvwrapper
+    tmux
+    zsh-syntax-highlighting  # has to be the last
     )
 
 # Aliases
@@ -41,7 +41,9 @@ alias ubik='ssh -i ~/.ssh/ansible -t ubuntu@54.88.161.216 "cd /opt/ubik; bash"'
 
 function dockerrmall {
     docker rm `docker ps --all | awk '{print $1}' | tail +2`
+    docker images -qf dangling=true | xargs -I {} docker rmi -f {} &&     docker images | grep "^<none>" | awk "{print }" | xargs -I {} docker rmi -f
 }
+
 
 function sshans {
 	ssh -i ~/.ssh/ansible ubuntu@$*
@@ -119,3 +121,12 @@ source ~/.zshrc_secret
 
 # Source OH MY ZSH
 source $ZSH/oh-my-zsh.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/doody/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/doody/google-cloud-sdk/completion.zsh.inc'
+alias vpn='sshuttle -v -r ssh-gw.rounds.com --dns 0.0.0.0/0'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

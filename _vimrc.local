@@ -2,6 +2,10 @@ autocmd Filetype COMMIT_EDITMSG :normal G
 
 let g:syntastic_python_checkers=['flake8', 'pep257']
 let g:syntastic_go_checkers = [ 'gometalinter' ]
+let g:syntastic_cpp_checkers = [ 'cpplint' ]
+let g:syntastic_cpp_cpplint_args = '--verbose=1'
+let g:syntastic_cpp_cpplint_exec = 'cpplint'
+
 
 let g:syntastic_id_checkers = 0
 let g:syntastic_aggregate_errors = 1
@@ -20,4 +24,34 @@ let g:syntastic_enable_signs = 1
 " syntax on
 
 nmap T :TagbarToggle<CR>
-nmap N :NERDTreeToggle<CR>
+nmap R :NERDTreeToggle<CR>
+nmap S ysaw
+set rtp+=~/.fzf
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
