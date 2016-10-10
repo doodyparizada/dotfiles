@@ -44,6 +44,7 @@ function dockerrmall {
     docker images -qf dangling=true | xargs -I {} docker rmi -f {} &&     docker images | grep "^<none>" | awk "{print }" | xargs -I {} docker rmi -f
 }
 
+alias dockerrmallimages="rm -rf ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2"
 
 function sshans {
 	ssh -i ~/.ssh/ansible ubuntu@$*
@@ -73,6 +74,22 @@ function vimg {
 function vimf {
     vim `fn "$*"`
 }
+
+function rsharkz () {
+    ssh "$@" "sudo tcpdump -i any -s 0 -w - 'not port 22' | bzip2 --stdout --fast" | bzip2 --decompress - | pv | wireshark -S -l -k -N mnNtCd -i - 2> /dev/null
+}
+
+function rshark () {
+    ssh "$@" "sudo tcpdump -i any -s 0 -w - 'not port 22'" | pv | wireshark -S -l -k -N mnNtCd -i - 2> /dev/null
+}
+
+#
+#function rshark () {
+#    ssh "$@" "sudo tcpdump -i any -n -U -s 0 --buffer-size=2048 -w - 'not port 22'" | pv | wireshark -S -l -k -N mnNtCd -i - 2> /dev/null
+#}
+#function rsharkz () {
+#    ssh "$@" "sudo tcpdump -i any -n -U -s 0 --buffer-size=2048 -w - 'not port 22' | bzip2 --stdout --fast" | bzip2 --decompress - | pv | wireshark -S -l -k -N mnNtCd -i - 2> /dev/null
+#}
 
 
 # bind up and down keys to filter history by the current cmd prefix

@@ -14,6 +14,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_enable_signs = 1
 
+autocmd Filetype yaml setlocal ts=2 sw=2 expandtab
+
 " Some Linux distributions set filetype in /etc/vimrc.
 " Clear filetype flags before changing runtimepath to force Vim to reload them.
 " if exists("g:did_load_filetypes")
@@ -26,6 +28,8 @@ let g:syntastic_enable_signs = 1
 nmap T :TagbarToggle<CR>
 nmap R :NERDTreeToggle<CR>
 nmap S ysaw
+" autocmd BufWritePre *.cc,*.cpp :ClangFormat
+
 set rtp+=~/.fzf
 
 let g:tagbar_type_go = {
