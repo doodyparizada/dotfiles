@@ -1,6 +1,7 @@
 [user]
     name = Doody Parizada
     email = doody.parizada@gmail.com
+	signingkey = 431D8C0648189B4D
 
 [color]
     diff = auto
@@ -9,7 +10,7 @@
     ui = auto
 
 [push]
-    default = current
+    default = current #simple
 
 [core]
     editor = vim
@@ -19,7 +20,7 @@
 [alias]
     diverges = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
     st = status -s -uno
-    ci = commit
+    ci = commit -S
     br = branch
     co = checkout
     df = diff
@@ -32,3 +33,7 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg2
+[commit]
+	gpgsign = true

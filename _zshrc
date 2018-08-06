@@ -105,18 +105,21 @@ bindkey '^X^X' history-beginning-search-menu
 fpath=(~/.zsh-completions/src $fpath)
 unsetopt correct_all
 source ~/.profile
-export PATH=/usr/local/bin:~/Workspace/misc/devops_scripts/:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:~/Workspace/misc/devops_scripts/:~/Workspace/lp-aws-saml/:$PATH
 
 # GO
-# godoc
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=~/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 export PATH="~/google-cloud-sdk/bin:$PATH"
 [[ -s "/Users/doody/.gvm/scripts/gvm" ]] && source "/Users/doody/.gvm/scripts/gvm"
 
 # PYTHON
-export WORKON_HOME=~/virtualenvwrapper
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=~/virtualenvwrapper
+# source /usr/local/bin/virtualenvwrapper.sh
 source ~/.zshrc_secret
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+eval "$(pipenv --completion)"
 
 # Source OH MY ZSH
 source $ZSH/oh-my-zsh.sh
@@ -158,11 +161,13 @@ alias resource='source $ZSH/oh-my-zsh.sh'
 alias gh=hub
 alias ubik='ssh -i ~/.ssh/ansible -t ubuntu@54.88.161.216 "cd /opt/ubik; bash"'
 alias tunnel-rkik='sshuttle -r ssh-bastion-rkik.rounds.video 10.32.0.0/16 172.16.0.0/24 --dns'
+#alias tunnel-db='ssh -N -L 5432:ecosystem.c5hze3yp2tw7.us-east-1.rds.amazonaws.com:5432 ecosystem-bastion'
+alias tunnel-db='ssh -N -L 5432:marketplace-db.kinmarketplace.com:5432 ecosystem-bastion'
+alias netstat='lsof -PiTCP -sTCP:LISTEN'
 
 
 export SSH_KEY_FILE=~/.ssh/id_rsa.np
 export GITHUB_SSH_KEY=id_rsa.np
-export GOPATH=~/Workspace/gopath
 
 function awsswitch {
     account=$1
@@ -176,7 +181,12 @@ function awsswitch {
         unset AWS_SESSION_TOKEN AWS_SECURITY_TOKEN;
     fi
 }
-awsswitch doody@rounds.com
+awsswitch rkik
+export AWS_DEFAULT_REGION=us-east-1
 
 # JAVA
 export JAVA_HOME=$(/usr/libexec/java_home)
+
+unsetopt inc_append_history
+unsetopt share_history
+export PATH="/usr/local/opt/node@8/bin:$PATH"
